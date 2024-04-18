@@ -1,12 +1,19 @@
 import express from "express";
 import connectDb from "./config/db.js";
-import authRouter from "./Routes/auth.route.js"
+import authRouter from "./Routes/auth.route.js";
+import messageRouter from "./Routes/message.route.js";
+import cookieParser from "cookie-parser";
 
 
 const app = express();
 app.use(express.json());   // to parse the json data in the request body
+app.use(cookieParser());
+
+
 
 app.use("/api/auth",authRouter)
+app.use("/api/message",messageRouter)
+
 
 app.listen(3000, async() => {
     try{
