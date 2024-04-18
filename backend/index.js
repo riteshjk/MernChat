@@ -4,7 +4,7 @@ import authRouter from "./Routes/auth.route.js"
 
 
 const app = express();
-app.use(express.json());
+app.use(express.json());   // to parse the json data in the request body
 
 app.use("/api/auth",authRouter)
 
