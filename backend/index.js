@@ -3,6 +3,7 @@ import connectDb from "./config/db.js";
 import authRouter from "./Routes/auth.route.js";
 import messageRouter from "./Routes/message.route.js";
 import cookieParser from "cookie-parser";
+import userRouter from "./Routes/users.route.js";
 
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(cookieParser());
 
 app.use("/api/auth",authRouter)
 app.use("/api/message",messageRouter)
+app.use("/api/users",userRouter)
 
 
 app.listen(3000, async() => {
