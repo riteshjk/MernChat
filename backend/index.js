@@ -4,12 +4,15 @@ import authRouter from "./Routes/auth.route.js";
 import messageRouter from "./Routes/message.route.js";
 import cookieParser from "cookie-parser";
 import userRouter from "./Routes/users.route.js";
+import cors from "cors";
 
 
 const app = express();
 app.use(express.json());   // to parse the json data in the request body
 app.use(cookieParser());
-
+app.use(cors({
+    origin:"*"
+}))
 
 
 app.use("/api/auth",authRouter)
