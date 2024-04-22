@@ -1,4 +1,10 @@
-const GenderCheckbox = () => {
+const GenderCheckbox = ({handleInputValueChange}) => {
+
+	const handleCheckboxChange = (e) => {
+		const gender = e.target.checked ? e.target.id : '';
+		handleInputValueChange({ target: { id: 'gender', value: gender } });
+	  };
+	  
 	return (
 		<div className='flex'>
 			<div className='form-control'>
@@ -7,7 +13,8 @@ const GenderCheckbox = () => {
 					<input
 						type='checkbox'
 						className='checkbox border-slate-900'
-						
+						id="male"
+						onChange={handleCheckboxChange}
 					/>
 				</label>
 			</div>
@@ -17,6 +24,8 @@ const GenderCheckbox = () => {
 					<input
 						type='checkbox'
 						className='checkbox border-slate-900'
+						id="female"
+						onChange={handleCheckboxChange}
 					/>
 				</label>
 			</div>
