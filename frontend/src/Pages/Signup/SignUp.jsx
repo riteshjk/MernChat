@@ -19,7 +19,7 @@ const SignUpUser = () => {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-     
+      console.log(inputValue)
       if (!inputValue.fullName || !inputValue.username || !inputValue.password || !inputValue.confirmPassword || !inputValue.gender) {
        console.log("all fields are required");
         return;
