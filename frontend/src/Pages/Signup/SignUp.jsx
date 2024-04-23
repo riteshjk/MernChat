@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import GenderCheckbox from "./GenderCheckBox";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const SignUpUser = () => {
    
@@ -12,6 +14,7 @@ const SignUpUser = () => {
 		gender: "",
     })
 
+    const navigate = useNavigate();
     
     const handleInputValueChange =(e) =>{
         setInputValue({...inputValue,[e.target.id]:e.target.value})
@@ -21,8 +24,12 @@ const SignUpUser = () => {
       e.preventDefault();
       console.log(inputValue)
       if (!inputValue.fullName || !inputValue.username || !inputValue.password || !inputValue.confirmPassword || !inputValue.gender) {
-       console.log("all fields are required");
+        alert("Please fill in all fields");
         return;
+      }
+      if(inputValue.password !==inputValue.confirmPassword){
+      alert("Passwords do not match");
+      return;
       }
   
       try {
@@ -32,12 +39,12 @@ const SignUpUser = () => {
           body: JSON.stringify({ fullName: inputValue.fullName, username: inputValue.username, password: inputValue.password, confirmPassword: inputValue.confirmPassword, gender: inputValue.gender }),
         })
         setInputValue({});
-        console.log(res,"data");
-        if (res.status === 200) {
-          console.log("Signup was successful.");
+        // console.log(res,"data");
+        if (res.ok) {
+          alert("Signup was successful.");
           navigate("/login");
         } else {
-          console.log("Signup was not successful. Please try again.");
+          alert("Signup was not successful. Please try again.");
         }
       } catch (error) {
         console.error("Signup failed:", error);
