@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Conversation from './Conversation';
 import { useSelector, useDispatch } from "react-redux";
 import { setUsers,setLoading,setError } from "../../redux/user/userSlice";
+import { getRandomEmoji } from '../../utils/emojis';
 
 const Conversations = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const Conversations = () => {
   return (
     <div className='flex flex-col py-2 overflow-auto'>
       {
-        users?.map((el)=>  <Conversation users={el}/>)
+        users?.map((el)=>  <Conversation users={el} emoji={getRandomEmoji()}/>)
       }
      
     </div>

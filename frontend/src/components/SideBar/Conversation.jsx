@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Conversation = ({users}) => {
+const Conversation = ({users,emoji}) => {
 	//console.log(users)
-	const {profilePic,username,gender} = users
+	const {profilePic,fullName} = users
 	
   return (
     <>
@@ -16,8 +16,8 @@ const Conversation = ({users}) => {
 
 				<div className='flex flex-col flex-1'>
 					<div className='flex gap-3 justify-between'>
-						<p className='font-bold text-gray-200'>{username}</p>
-						<span className='text-xl'>{gender}</span>
+						<p className='font-bold text-gray-200'>{fullName}</p>
+						<span className='text-xl'>{emoji}</span>
 					</div>
 				</div>
 			</div>
