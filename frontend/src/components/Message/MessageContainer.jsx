@@ -1,22 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MessageInput from './MessageInput';
 import { TiMessages } from "react-icons/ti";
 import Messages from './Messages';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setSelectedConversationId } from '../../redux/user/userSlice';
+
 
 const MessageContainer = () => {
-    const noChatSelected = true;
-    
+   const {selectedConversationId,selectedUser} = useSelector((state) => state.user);
+   const dispatch = useDispatch();
+
+   useEffect(() => {
+     return () => {
+      dispatch(setSelectedConversationId(null))
+     }
+   },[setSelectedConversationId])
+ 
   return (
     <div className='md:min-w-[450px] flex flex-col'> 
     {
-        noChatSelected ? <NoChatSelected /> : (
+        !selectedConversationId ? <NoChatSelected /> : (
             
         <>
         {/* Header */}
         <div className='bg-slate-500 px-4 py-2 mb-2'>
             <span className='label-text'>To:</span>{" "}
-            <span className='text-gray-900 font-bold'>Ritesh</span>
+            <span className='text-gray-900 font-bold'>{selectedUser}</span>
         </div>
         <Messages />
         <MessageInput />

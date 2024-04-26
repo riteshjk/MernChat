@@ -1,28 +1,43 @@
-import React from 'react'
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedConversationId ,setSelectedUser} from '../../redux/user/userSlice';
 
-const Conversation = ({users,emoji}) => {
-	//console.log(users)
-	const {profilePic,fullName} = users
+const Conversation = ({ users, emoji, lastIdx }) => {
+    const dispatch = useDispatch();
+    const {selectedConversationId} = useSelector((state) => state.user);
+
+    const handleUserSelection = () => {
+		
+        dispatch(setSelectedConversationId(users._id)); 
+		dispatch(setSelectedUser(users.fullName));
+    };
+
 	
+	
+
   return (
     <>
-			<div
-				className={`flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-1 cursor-pointer}`}>
+			 <div
+                onClick={handleUserSelection} 
+                className={`flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-1 cursor-pointer ${
+                    selectedConversationId === users._id ? "bg-sky-500" : ""
+                }`}
+            >
 				<div className={`avatar online`}>
 					<div className='w-12 rounded-full'>
-						<img src={profilePic} alt='user avatar' />
+						<img src={users.profilePic} alt='user avatar' />
 					</div>
 				</div>
 
 				<div className='flex flex-col flex-1'>
 					<div className='flex gap-3 justify-between'>
-						<p className='font-bold text-gray-200'>{fullName}</p>
+						<p className='font-bold text-gray-200'>{users.fullName}</p>
 						<span className='text-xl'>{emoji}</span>
 					</div>
 				</div>
 			</div>
 
-			 <div className='divider my-0 py-0 h-1' />
+			 {!lastIdx && <div className='divider my-0 py-0 h-1' />}
 		</>
   )
 }

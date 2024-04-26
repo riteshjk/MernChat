@@ -25,11 +25,10 @@ const Conversations = () => {
     fetchAllUsers()
   },[])
 
-   console.log(users,"ababab")
   return (
     <div className='flex flex-col py-2 overflow-auto'>
       {
-        users?.map((el)=>  <Conversation users={el} emoji={getRandomEmoji()}/>)
+        users?.map((el,ind)=>  <Conversation key={el._id} users={el} emoji={getRandomEmoji()} lastIdx={ind == users.length - 1}/>)
       }
      
     </div>

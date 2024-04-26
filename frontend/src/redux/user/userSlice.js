@@ -4,7 +4,9 @@ const initialState = {
     currentUser: null,
     users:[],
     loading: false,
-    error: null
+    error: null,
+    selectedConversationId: null,
+    selectedUser:null
 }
 
 const userSlice = createSlice({
@@ -38,11 +40,17 @@ const userSlice = createSlice({
         },
         setError: (state, action) => {
             state.error = action.payload;
+        },
+        setSelectedConversationId: (state, action) => {
+            state.selectedConversationId = action.payload;
+        },
+        setSelectedUser:(state,action)=>{
+            state.selectedUser = action.payload
         }
 
     }
 })
 
-export const {signInStart,signInSuccess,signInFailure,signOutSuccess,setUsers, setLoading, setError} = userSlice.actions;
+export const {signInStart,signInSuccess,signInFailure,signOutSuccess,setUsers, setLoading, setError,setSelectedConversationId,setSelectedUser} = userSlice.actions;
 
 export default userSlice.reducer
