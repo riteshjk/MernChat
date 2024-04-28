@@ -6,7 +6,7 @@ const initialState = {
     loading: false,
     error: null,
     selectedConversationId: null,
-    selectedUser:null
+    selectedUser:{}
 }
 
 const userSlice = createSlice({

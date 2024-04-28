@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { BsSend } from "react-icons/bs";
 import { useSelector,useDispatch } from "react-redux";
-import {addMessage} from '../../redux/message/messageSlice'
+import { addMessageStart,addMessageSuccess,addMessageFailure } from "../../redux/message/messageSlice";
 
 const MessageInput = () => {
 	const {selectedConversationId} = useSelector((state) => state.user);
-	const {messages} = useSelector((state) => state.message);
+	const {messages,loading,error} = useSelector((state) => state.message);
 	const dispatch = useDispatch();
 	const [inputMessage, setInputMessage] = useState('');
 
@@ -13,6 +13,7 @@ const MessageInput = () => {
 		e.preventDefault();
 		
 		try{
+			
 			const res = await fetch(`/api/message/send/${selectedConversationId}`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -21,12 +22,13 @@ const MessageInput = () => {
 
 			const data = await res.json();
 			
-				dispatch(addMessage([...messages,data]))
+				dispatch(addMessageSuccess([...messages,data]))
 				setInputMessage("")
 
 		}
 		catch (error) {
 			console.log(error);
+			
 		}
 	}
 	

@@ -9,7 +9,7 @@ const Conversation = ({ users, emoji, lastIdx }) => {
     const handleUserSelection = () => {
 		
         dispatch(setSelectedConversationId(users._id)); 
-		dispatch(setSelectedUser(users.fullName));
+		dispatch(setSelectedUser(users));
     };
 
 	
