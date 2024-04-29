@@ -9,28 +9,23 @@ const MessageInput = () => {
 	const dispatch = useDispatch();
 	const [inputMessage, setInputMessage] = useState('');
 
-	const handleSubmit = async(e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		
-		try{
-			
-			const res = await fetch(`/api/message/send/${selectedConversationId}`, {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ message: inputMessage }),
-			})
-
-			const data = await res.json();
-			
-				dispatch(addMessageSuccess([...messages,data]))
-				setInputMessage("")
-
+	  
+		try {
+		  const res = await fetch(`/api/message/send/${selectedConversationId}`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ message: inputMessage }),
+		  });
+	  
+		  const data = await res.json();
+		  setInputMessage(""); // Clear the input field after successful update
+		  dispatch(addMessageSuccess([...messages, data])); // Dispatch with updated message data
+		} catch (error) {
+		  console.log(error);
 		}
-		catch (error) {
-			console.log(error);
-			
-		}
-	}
+	  };
 	
 	
 

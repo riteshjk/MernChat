@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect, useRef } from "react";
 import Message from './Message';
 import { useSelector,useDispatch } from 'react-redux';
 import {setMessage} from '../../redux/message/messageSlice'
@@ -11,6 +11,14 @@ const Messages = () => {
   const {messages,loading} = useSelector((state) => state.message);
   const {users,selectedConversationId} = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const lastMessageRef = useRef();
+
+	useEffect(() => {
+		setTimeout(() => {
+			lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+		}, 100);
+	}, [messages]);
 
   
   useEffect(() => {
@@ -34,7 +42,7 @@ const Messages = () => {
   return (
     <div className='px-4 flex-1 overflow-auto'>
        {
-        !loading &&messages?.map((el) => <Message key={el._id} messages={el}/>)
+        !loading &&messages?.map((el) => <Message key={el._id} ref={lastMessageRef} messages={el}/>)
       }
       {loading && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
      
