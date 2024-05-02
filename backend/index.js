@@ -4,15 +4,13 @@ import authRouter from "./Routes/auth.route.js";
 import messageRouter from "./Routes/message.route.js";
 import cookieParser from "cookie-parser";
 import userRouter from "./Routes/users.route.js";
-import cors from "cors";
+import { app, server } from "./socket/socket.js";
 
 
-const app = express();
+
 app.use(express.json());   // to parse the json data in the request body
 app.use(cookieParser());
-app.use(cors({
-    origin:"*"
-}))
+
 
 
 app.use("/api/auth",authRouter)
@@ -20,7 +18,7 @@ app.use("/api/message",messageRouter)
 app.use("/api/users",userRouter)
 
 
-app.listen(3000, async() => {
+server.listen(3000, async() => {
     try{
         await connectDb()
         console.log("connected to database successfully");
