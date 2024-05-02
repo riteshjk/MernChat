@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { IoSearchSharp } from 'react-icons/io5';
 import { useSelector,useDispatch } from 'react-redux';
-import {setSelectedUser,setSelectedConversationId} from "../../redux/user/userSlice"
+import {setSelectedUser,setSelectedConversationId} from "../../redux/user/userSlice";
+
 
 const SearchInput = () => {
   const [searchName,setSearchName] = useState('');
@@ -17,7 +18,9 @@ const SearchInput = () => {
     if(conversation){
       dispatch(setSelectedUser(conversation))
       dispatch(setSelectedConversationId(conversation._id))
+      setSearchName("")
     }
+    else alert("No such user found!");
   }
 
   // console.log(selectedUser,"ananana")
