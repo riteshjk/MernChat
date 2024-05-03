@@ -20,6 +20,7 @@ const Messages = () => {
 		}, 100);
 	}, [messages]);
 
+  console.log(selectedConversationId)
   
   useEffect(() => {
     const getMessages = async() =>{
@@ -27,6 +28,7 @@ const Messages = () => {
         dispatch(addMessageStart())
         const res = await fetch(`/api/message/${selectedConversationId}`)
         const data = await res.json();
+        // console.log(data,"hshshshsh")
         dispatch(setMessage(data))
       }
       catch(error){
@@ -37,21 +39,18 @@ const Messages = () => {
     if(selectedConversationId) getMessages()
   },[selectedConversationId,setMessage])
 
-  // console.log(loading,"ajajaj")
+   console.log(loading,"ajajaj")
   
   return (
     <div className='px-4 flex-1 overflow-auto'>
-       {
-        !loading &&messages?.map((el) => <Message key={el._id} ref={lastMessageRef} messages={el}/>)
-      }
-      {loading && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
-     
-      {!loading && messages.length === 0 && (
-				<p className='text-center'>Send a message to start the conversation</p>
-			)}
-      
-      
-    </div>
+    {selectedConversationId && ( // Check if selectedConversationId exists
+      !loading && messages?.map((el) => <Message key={el._id} ref={lastMessageRef} messages={el} />)
+    )}
+    {loading && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
+    {!loading && messages.length === 0 && (
+      <p className='text-center'>Send a message to start the conversation</p>
+    )}
+  </div>
   )
 }
 

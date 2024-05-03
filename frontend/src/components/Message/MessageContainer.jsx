@@ -11,7 +11,6 @@ const MessageContainer = () => {
    const {selectedConversationId,selectedUser} = useSelector((state) => state.user);
    const dispatch = useDispatch();
 
-   console.log(selectedUser,"ritesh")
 
    useEffect(() => {
      return () => {
@@ -54,4 +53,3 @@ const NoChatSelected = () => {
 		</div>
 	);
 };
-

@@ -9,6 +9,7 @@ const MessageInput = () => {
 	const dispatch = useDispatch();
 	const [inputMessage, setInputMessage] = useState('');
 
+	// console.log(selectedConversationId,"sahi hai kya..?")
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 	  
@@ -20,6 +21,7 @@ const MessageInput = () => {
 		  });
 	  
 		  const data = await res.json();
+		  console.log(data,"sahi hai")
 		  setInputMessage(""); // Clear the input field after successful update
 		  dispatch(addMessageSuccess([...messages, data])); // Dispatch with updated message data
 		} catch (error) {
@@ -27,8 +29,6 @@ const MessageInput = () => {
 		}
 	  };
 	
-	
-
 
 	return (
 		<form className='px-4 my-3' onSubmit={handleSubmit}>

@@ -13,7 +13,7 @@ const SearchInput = () => {
     e.preventDefault();
 
     const conversation = users.find((c)=> c.fullName.toLowerCase().includes(searchName.toLowerCase()));
-    console.log(conversation)
+    console.log(conversation,"abcd")
     
     if(conversation){
       dispatch(setSelectedUser(conversation))

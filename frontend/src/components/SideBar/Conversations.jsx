@@ -14,6 +14,7 @@ const Conversations = () => {
         method: "GET",
       })
       const data = await res.json();
+      // console.log(data,"jaja")
       dispatch(setUsers(data))
     }
     catch(error){
@@ -25,11 +26,16 @@ const Conversations = () => {
     fetchAllUsers()
   },[])
 
+
   return (
     <div className='flex flex-col py-2 overflow-auto'>
-      {
-        users?.map((el,ind)=>  <Conversation key={el._id} users={el} emoji={getRandomEmoji()} lastIdx={ind == users.length - 1}/>)
-      }
+      {users?.length > 0 && (
+  <>
+    {users.map((el, ind) => (
+      <Conversation key={el._id} users={el} emoji={getRandomEmoji()} lastIdx={ind === users.length - 1} />
+    ))}
+  </>
+)}
      
     </div>
   )
