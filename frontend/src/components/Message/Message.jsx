@@ -3,15 +3,15 @@ import { useSelector } from 'react-redux';
 import { extractTime } from '../../utils/extractTime';
 
 const Message = ({messages}) => {
-	const {message,createdAt} = messages;
+	
+	const {message,senderId,createdAt} = messages 
 	const {currentUser,selectedConversationId,selectedUser,users} = useSelector((state) => state.user);
-	 const fromMe = messages.senderId == currentUser._id;
-	  const chatClassName = fromMe ? "chat-end" : "chat-start";
-     const profilePic = fromMe ? currentUser.profilePic : selectedUser?.profilePic;
+	const fromMe = senderId == currentUser._id;
+	const chatClassName = fromMe ? "chat-end" : "chat-start";
+    const profilePic = fromMe ? currentUser.profilePic : selectedUser?.profilePic;
 	const bubbleBgColor = fromMe ? "bg-blue-500" : "";
 	const formattedTime = extractTime(createdAt);
-	// const shakeClass = message.shouldShake ? "shake" : "";
-	console.log(currentUser,"user")
+	
 	
   return (
     <div className={`chat ${chatClassName}`}>

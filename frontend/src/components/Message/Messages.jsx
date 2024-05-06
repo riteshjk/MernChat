@@ -9,7 +9,7 @@ import {addMessageStart,addMessageSuccess,addMessageFailure} from '../../redux/m
 
 const Messages = () => {
   const {messages,loading} = useSelector((state) => state.message);
-  const {users,selectedConversationId} = useSelector((state) => state.user);
+  const {users,selectedConversationId,selectedUser} = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const lastMessageRef = useRef();
@@ -20,13 +20,13 @@ const Messages = () => {
 		}, 100);
 	}, [messages]);
 
-  console.log(selectedConversationId)
+  // console.log(selectedConversationId)
   
   useEffect(() => {
     const getMessages = async() =>{
       try{
         dispatch(addMessageStart())
-        const res = await fetch(`/api/message/${selectedConversationId}`)
+        const res = await fetch(`/api/message/${selectedUser._id}`)
         const data = await res.json();
         // console.log(data,"hshshshsh")
         dispatch(setMessage(data))
@@ -36,15 +36,21 @@ const Messages = () => {
       }
   
     }
-    if(selectedConversationId) getMessages()
-  },[selectedConversationId,setMessage])
+    if(selectedUser._id) getMessages()
+  },[selectedUser._id,setMessage])
 
-   console.log(loading,"ajajaj")
+  //  console.log(messages,"ajajaj")
   
   return (
     <div className='px-4 flex-1 overflow-auto'>
-    {selectedConversationId && ( // Check if selectedConversationId exists
-      !loading && messages?.map((el) => <Message key={el._id} ref={lastMessageRef} messages={el} />)
+    {selectedUser && selectedUser._id ? (
+      !loading &&
+        messages?.length > 0 &&
+        messages?.map((el) => (
+          <Message  ref={lastMessageRef} messages={el} />
+        ))
+    ) : (
+      <p className='text-center'>Select a user to start messaging</p>
     )}
     {loading && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
     {!loading && messages.length === 0 && (

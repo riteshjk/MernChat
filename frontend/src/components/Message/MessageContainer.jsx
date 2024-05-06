@@ -4,24 +4,25 @@ import { TiMessages } from "react-icons/ti";
 import Messages from './Messages';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setSelectedConversationId } from '../../redux/user/userSlice';
+import { setSelectedConversationId,setSelectedUser } from '../../redux/user/userSlice';
 
 
 const MessageContainer = () => {
-   const {selectedConversationId,selectedUser} = useSelector((state) => state.user);
+   const {selectedConversationId,selectedUser,} = useSelector((state) => state.user);
    const dispatch = useDispatch();
 
 
    useEffect(() => {
      return () => {
-      dispatch(setSelectedConversationId(null))
+      dispatch(setSelectedUser(null))
      }
-   },[setSelectedConversationId])
+   },[setSelectedUser])
+
  
   return (
     <div className='md:min-w-[450px] flex flex-col'> 
     {
-        !selectedConversationId ? <NoChatSelected /> : (
+        !selectedUser ? <NoChatSelected /> : (
             
         <>
         {/* Header */}

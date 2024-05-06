@@ -4,7 +4,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { addMessageStart,addMessageSuccess,addMessageFailure } from "../../redux/message/messageSlice";
 
 const MessageInput = () => {
-	const {selectedConversationId} = useSelector((state) => state.user);
+	const {selectedConversationId,selectedUser} = useSelector((state) => state.user);
 	const {messages,loading,error} = useSelector((state) => state.message);
 	const dispatch = useDispatch();
 	const [inputMessage, setInputMessage] = useState('');
@@ -14,7 +14,7 @@ const MessageInput = () => {
 		e.preventDefault();
 	  
 		try {
-		  const res = await fetch(`/api/message/send/${selectedConversationId}`, {
+		  const res = await fetch(`/api/message/send/${selectedUser._id}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ message: inputMessage }),
